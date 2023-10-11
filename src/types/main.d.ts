@@ -49,7 +49,7 @@ export type ClickRowArgument = Item & {
 }
 
 export type UpdateSortArgument = {
-  sortType: SortType | null
+  sortType: SortType
   sortBy: string
 }
 

@@ -5,9 +5,9 @@
     <option>indicator.weight</option>
   </select> -->
 
-  <br/>
+  <br />
   <span>search value: </span>
-  <input type="text" v-model="searchValue">
+  <input type="text" v-model="searchValue" />
   <div>
     <DataTable
       table-node-id="my-table"
@@ -23,9 +23,6 @@
       :search-field="searchField"
       :search-value="searchValue"
       :rows-per-page="10"
-      buttons-pagination
-      :sort-by="sortBy"
-      :sort-type="sortType"
       theme-color="#1d90ff"
       table-class-name="hc-table"
       header-class-name="hc-header"
@@ -35,7 +32,6 @@
       :body-expand-row-class-name="bodyExpandRowClassNameFunction"
       @update-sort="updateSort"
       @update-filter="updateFilter"
-      multi-sort
       body-text-direction="left"
       header-text-direction="left"
       click-event-type="double"
@@ -45,7 +41,7 @@
       @update-total-items="updateTotalItems"
       show-index-symbol="$"
     >
-     <!-- <template #customize-headers>
+      <!-- <template #customize-headers>
         <thead class="my-static-header">
           <tr>
             <th colspan="3" rowspan="2"></th>
@@ -65,25 +61,20 @@
         </thead>
       </template> -->
       <template #expand="item">
-        <div style="padding: 15px">
-          {{ item.name }} won championships
-        </div>
+        <div style="padding: 15px">{{ item.name }} won championships</div>
       </template>
 
       <template #header-name="header">
         <div class="filter-column">
           <span
             class="filter-icon"
-            @click.stop="showNameFilter=!showNameFilter"
+            @click.stop="showNameFilter = !showNameFilter"
           >
             icon
           </span>
           {{ header.text }}
-          <div
-            v-if="showNameFilter"
-            class="filter-menu filter-age-menu"
-          >
-            <input v-model="nameCriteria">
+          <div v-if="showNameFilter" class="filter-menu filter-age-menu">
+            <input v-model="nameCriteria" />
           </div>
         </div>
       </template>
@@ -110,26 +101,40 @@
         <span>body.append</span>
       </template> -->
     </DataTable>
+
+    <br />
+    New sort options:<br />
+    <div id="new-sort"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  computed, ref, reactive, toRefs, onMounted
-} from 'vue';
+import { computed, ref, reactive, toRefs, onMounted } from 'vue';
 // import { useRowsPerPage } from 'use-vue3-easy-data-table';
 // import type { UseRowsPerPageReturn } from 'use-vue3-easy-data-table';
 import type {
-  Header, Item, FilterOption, ClickRowArgument, UpdateSortArgument, HeaderItemClassNameFunction, BodyItemClassNameFunction, BodyRowClassNameFunction,
+  Header,
+  Item,
+  FilterOption,
+  ClickRowArgument,
+  UpdateSortArgument,
+  HeaderItemClassNameFunction,
+  BodyItemClassNameFunction,
+  BodyRowClassNameFunction,
   TextDirection,
 } from '../types/main';
 import DataTable from '../components/DataTable.vue';
-import { mockClientNestedItems, mockClientItems, mockDuplicateClientNestedItems, headersMocked } from '../mock';
+import {
+  mockClientNestedItems,
+  mockClientItems,
+  mockDuplicateClientNestedItems,
+  headersMocked,
+} from '../mock';
 
 const searchField = ref('name');
 const searchValue = ref('');
-const sortBy = ref(['indicator.weight', 'number']);
-const sortType = ref<SortType | SortType[] | undefined>(['desc', 'asc']);
+const sortBy = ref(['number', 'number']);
+const sortType = ref<SortType[]>(['desc', 'asc']);
 const switchToNested300 = () => {
   items.value = mockClientNestedItems(300);
 };
@@ -138,14 +143,15 @@ const switchToNested = () => {
   items.value = mockClientNestedItems(100);
 };
 const headers: Header[] = [
-  { text: "Name", value: "name" },
-  { text: "TEAM", value: "team"},
-  { text: "NUMBER", value: "number", sortable: true},
-  { text: "POSITION", value: "position"},
-  { text: "HEIGHT", value: "indicator.height"},
-  { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
-  { text: "LAST ATTENDED", value: "lastAttended", width: 200},
-  { text: "COUNTRY", value: "country"},
+  { text: 'Name', value: 'name' },
+  { text: 'TEAM', value: 'team' },
+  { text: 'NUMBER', value: 'number', sortable: true },
+  { text: 'POSITION', value: 'position', sortable: true },
+  { text: 'HEIGHT', value: 'indicator.height' },
+  { text: 'WEIGHT (lbs)', value: 'indicator.weight', sortable: true },
+  { text: 'LAST ATTENDED', value: 'lastAttended', width: 200 },
+  { text: 'COUNTRY', value: 'country' },
+  { text: 'STATUS', value: 'status' },
 ];
 
 // const headers: Header[] = headersMocked;
@@ -166,22 +172,170 @@ const updateTotalItems = (items: Item[]) => {
 };
 
 const items = ref<Item[]>([
-  { name: "Stephen Curry", firstName: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-  { name: "Kevin Durant", firstName: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
-  { name: "Lebron James", firstName: "LAL", number: 7, position: 'F', indicator: {"height": '6-9', "weight": 185}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
-  { name: "Giannis Antetokounmpo", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
-  { name: "HC", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 243}, lastAttended: "Filathlitikos", country: "Greece"},
-  { name: "Stephen Curry", firstName: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-  { name: "Kevin Durant", firstName: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
-  { name: "Lebron James", firstName: "LAL", number: 7, position: 'F', indicator: {"height": '6-9', "weight": 185}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
-  { name: "Giannis Antetokounmpo", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
-  { name: "HC", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 243}, lastAttended: "Filathlitikos", country: "Greece"},
-  { name: "Stephen Curry", firstName: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-  { name: "Kevin Durant", firstName: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
-  { name: "Lebron James", firstName: "LAL", number: 7, position: 'F', indicator: {"height": '6-9', "weight": 185}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
-  { name: "Giannis Antetokounmpo", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
-  { name: "HC", firstName: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 243}, lastAttended: "Filathlitikos", country: "Greece"},
+  {
+    name: 'Stephen Curry',
+    firstName: 'GSW',
+    number: 30,
+    position: 'G',
+    indicator: { height: '6-2', weight: 185 },
+    lastAttended: 'Davidson',
+    country: 'USA',
+    status: 'Storniert',
+  },
+  {
+    name: 'Kevin Durant',
+    firstName: 'BKN',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-10', weight: 240 },
+    lastAttended: 'Texas-Austin',
+    country: 'USA',
+    status: 'Storniert',
+  },
+  {
+    name: 'Lebron James',
+    firstName: 'LAL',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-9', weight: 185 },
+    lastAttended: 'St. Vincent-St. Mary HS (OH)',
+    country: 'USA',
+    status: 'Gesperrt',
+  },
+  {
+    name: 'Giannis Antetokounmpo',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 242 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Gesperrt',
+  },
+  {
+    name: 'HC',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 243 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Abgeschlossen',
+  },
+  {
+    name: 'Stephen Curry',
+    firstName: 'GSW',
+    number: 30,
+    position: 'G',
+    indicator: { height: '6-2', weight: 185 },
+    lastAttended: 'Davidson',
+    country: 'USA',
+    status: 'Abgeschlossen',
+  },
+  {
+    name: 'Kevin Durant',
+    firstName: 'BKN',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-10', weight: 240 },
+    lastAttended: 'Texas-Austin',
+    country: 'USA',
+    status: 'Storniert',
+  },
+  {
+    name: 'Lebron James',
+    firstName: 'LAL',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-9', weight: 185 },
+    lastAttended: 'St. Vincent-St. Mary HS (OH)',
+    country: 'USA',
+    status: 'Gesperrt',
+  },
+  {
+    name: 'Giannis Antetokounmpo',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 242 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Storniert',
+  },
+  {
+    name: 'HC',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 243 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Abgeschlossen',
+  },
+  {
+    name: 'Stephen Curry',
+    firstName: 'GSW',
+    number: 30,
+    position: 'G',
+    indicator: { height: '6-2', weight: 185 },
+    lastAttended: 'Davidson',
+    country: 'USA',
+    status: 'Abgeschlossen',
+  },
+  {
+    name: 'Kevin Durant',
+    firstName: 'BKN',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-10', weight: 240 },
+    lastAttended: 'Texas-Austin',
+    country: 'USA',
+    status: 'Storniert',
+  },
+  {
+    name: 'Lebron James',
+    firstName: 'LAL',
+    number: 7,
+    position: 'F',
+    indicator: { height: '6-9', weight: 185 },
+    lastAttended: 'St. Vincent-St. Mary HS (OH)',
+    country: 'USA',
+    status: 'Gesperrt',
+  },
+  {
+    name: 'Giannis Antetokounmpo',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 242 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Gesperrt',
+  },
+  {
+    name: 'HC',
+    firstName: 'MIL',
+    number: 34,
+    position: 'F',
+    indicator: { height: '6-11', weight: 243 },
+    lastAttended: 'Filathlitikos',
+    country: 'Greece',
+    status: 'Abgeschlossen',
+  },
 ]);
+
+function sortByStatus(
+  statusOrder: string[],
+  valueA: string,
+  valueB: string,
+  isDescending: boolean
+): number {
+  return !isDescending
+    ? statusOrder.indexOf(valueA.toLowerCase()) -
+        statusOrder.indexOf(valueB.toLowerCase())
+    : statusOrder.indexOf(valueB.toLowerCase()) -
+        statusOrder.indexOf(valueA.toLowerCase());
+}
 
 // const items = ref<Item[]>(mockClientItems());
 
@@ -208,7 +362,7 @@ const deselectRow = (item: ClickRowArgument) => {
 };
 
 const updateSort = (sortOption: UpdateSortArgument) => {
-  console.log(sortOption);
+  document.getElementById('new-sort').innerHTML = JSON.stringify(sortOption);
 };
 // filtering
 
@@ -229,23 +383,43 @@ const nameCriteria = ref('');
 //   return filterOptionsArray;
 // });
 
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (item: Item, index: number): string => (index === 0 ? 'first-row test-row' : '');
-const bodyExpandRowClassNameFunction: BodyRowClassNameFunction = (item: Item, index: number): string => 'expand-row';
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  index: number
+): string => (index === 0 ? 'first-row test-row' : '');
+const bodyExpandRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  index: number
+): string => 'expand-row';
 
-const headerItemClassNameFunction: HeaderItemClassNameFunction = (header: Header, index: number): string => (header.value === 'name' ? 'name-header' : '');
-const bodyItemClassNameFunction: BodyItemClassNameFunction = (column: string, index: number): string => ((column === 'name' && index === 1) ? 'colume_name-index_1' : '');
+const headerItemClassNameFunction: HeaderItemClassNameFunction = (
+  header: Header,
+  index: number
+): string => (header.value === 'name' ? 'name-header' : '');
+const bodyItemClassNameFunction: BodyItemClassNameFunction = (
+  column: string,
+  index: number
+): string => (column === 'name' && index === 1 ? 'colume_name-index_1' : '');
 // $ref dataTable
 const dataTable = ref();
 
 // index related
-const currentPageFirstIndex = computed(() => dataTable.value?.currentPageFirstIndex);
-const currentPageLastIndex = computed(() => dataTable.value?.currentPageLastIndex);
+const currentPageFirstIndex = computed(
+  () => dataTable.value?.currentPageFirstIndex
+);
+const currentPageLastIndex = computed(
+  () => dataTable.value?.currentPageLastIndex
+);
 
 const totalItemsLength = computed(() => dataTable.value?.totalItemsLength);
 
 // paginations related
-const maxPaginationNumber = computed(() => dataTable.value?.maxPaginationNumber);
-const currentPaginationNumber = computed(() => dataTable.value?.currentPaginationNumber);
+const maxPaginationNumber = computed(
+  () => dataTable.value?.maxPaginationNumber
+);
+const currentPaginationNumber = computed(
+  () => dataTable.value?.currentPaginationNumber
+);
 
 const isFirstPage = computed(() => dataTable.value?.isFirstPage);
 const isLastPage = computed(() => dataTable.value?.isLastPage);
@@ -260,16 +434,25 @@ const updatePage = (paginationNumber: number) => {
   dataTable.value.updatePage(paginationNumber);
 };
 const isDataHeader = (header: Header) => {
-  return !(header.value === 'checkbox' || header.value === 'index' || header.value === 'expand')
-}
+  return !(
+    header.value === 'checkbox' ||
+    header.value === 'index' ||
+    header.value === 'expand'
+  );
+};
 
 // rows per page
 const rowsPerPageOptions = computed(() => dataTable.value?.rowsPerPageOptions);
-const rowsPerPageActiveOption = computed(() => dataTable.value?.rowsPerPageActiveOption);
+const rowsPerPageActiveOption = computed(
+  () => dataTable.value?.rowsPerPageActiveOption
+);
 
 const updateRowsPerPageSelect = (e: Event) => {
-  dataTable.value.updateRowsPerPageActiveOption(Number((e.target as HTMLInputElement).value));
+  dataTable.value.updateRowsPerPageActiveOption(
+    Number((e.target as HTMLInputElement).value)
+  );
 };
+
 
 // const {
 //   rowsPerPageOptions,
@@ -280,7 +463,6 @@ const updateRowsPerPageSelect = (e: Event) => {
 // const updateRowsPerPageSelect = (e: Event) => {
 //   updateRowsPerPageActiveOption(Number((e.target as HTMLInputElement).value));
 // };
-
 </script>
 
 <style scoped>
@@ -368,5 +550,4 @@ const updateRowsPerPageSelect = (e: Event) => {
   border-right: 1px solid #445269;
   border-bottom: 1px solid #445269;
 }
-
 </style>
