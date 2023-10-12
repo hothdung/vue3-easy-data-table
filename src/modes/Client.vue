@@ -7,13 +7,9 @@
   <div>
     <DataTable
       table-node-id="my-table"
-      v-model:items-selected="itemsSelected"
       click-row-to-expand
       ref="dataTable"
-      alternating
       border-cell
-      no-hover
-      show-index
       :headers="headers"
       :items="items"
       :search-field="searchField"
@@ -36,7 +32,6 @@
       @deselect-row="deselectRow"
       @update-page-items="updateItems"
       @update-total-items="updateTotalItems"
-      show-index-symbol="$"
     >
       <!-- <template #customize-headers>
         <thead class="my-static-header">
@@ -501,14 +496,14 @@ const updateRowsPerPageSelect = (e: Event) => {
 </script>
 
 <style lang="stylus" scoped>
-.customize-footer 
+.customize-footer
 	margin 5px
 	display flex
 	flex-direction column
 	align-items center
-	div 
+	div
 		margin 5px
-.customize-button 
+.customize-button
 	display inline-block
 	width 20px
 	height 20px
@@ -517,23 +512,23 @@ const updateRowsPerPageSelect = (e: Event) => {
 	cursor pointer
 	padding 3px
 	line-height 20px
-	&.active 
+	&.active
 		color #fff
 		background-color #3db07f
-.customize-pagination 
-	button 
+.customize-pagination
+	button
 		margin 0 5px
 		cursor pointer
-.filter-wrapper 
+.filter-wrapper
 	display flex
 	align-items center
-.slider 
+.slider
 	flex-grow 1
 </style>
 
 <style lang="stylus">
 @import '../scss/vue3-easy-data-table.styl';
-.hc-table 
+.hc-table
 	$easy-table-border = 1px solid #445269
 	$easy-table-row-border = 1px solid #445269
 	$easy-table-header-font-size = 12px
@@ -561,8 +556,8 @@ const updateRowsPerPageSelect = (e: Event) => {
 	$easy-table-scrollbar-corner-color = #4c5d7a
 	$easy-table-scrollbar-thumb-color = #2d3a4f
 	$easy-table-loading-mask-background-color = #2d3a4f
-.my-static-header 
-	th 
+.my-static-header
+	th
 		color white
 		border-right 1px solid #445269
 		border-bottom 1px solid #445269

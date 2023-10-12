@@ -163,42 +163,34 @@ const paginationItemsForRender = computed((): PaginationItem[] => {
 
 const themeColor = inject('themeColor');
 </script>
-<style lang="scss" scoped>
-.buttons-pagination {
-  box-sizing: border-box;
-  display: flex;
-  padding: 0px;
-  border-radius: 4px;
-  .item {
-    box-sizing: border-box;
-    cursor: pointer;
-    // height: calc(var(--easy-table-footer-font-size) * 2);
-    min-width: calc(var(--easy-table-footer-font-size) * 1.8);
-    line-height: calc(var(--easy-table-footer-font-size) * 1.8);
-    border-top: var(--easy-table-buttons-pagination-border);
-    border-bottom: var(--easy-table-buttons-pagination-border);
-    border-right: var(--easy-table-buttons-pagination-border);
-    text-align: center;
-    &:first-of-type  {
-      border-left: var(--easy-table-buttons-pagination-border);
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    &:last-of-type {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-    &.button {
-      &.active {
-        background-color: v-bind(themeColor);
-        border-left: var(--easy-table-buttons-pagination-border);
-        border-color: v-bind(themeColor)!important;
-        color: #fff;
-      }
-      &.active-prev {
-        border-right: none;
-      }
-    }
-  }
-}
+<style lang="stylus" scoped>
+.buttons-pagination 
+	box-sizing border-box
+	display flex
+	padding 0px
+	border-radius 4px
+	.item 
+		box-sizing border-box
+		cursor pointer
+		min-width calc(var(--easy-table-footer-font-size) * 1.8)
+		line-height calc(var(--easy-table-footer-font-size) * 1.8)
+		border-top var(--easy-table-buttons-pagination-border)
+		border-bottom var(--easy-table-buttons-pagination-border)
+		border-right var(--easy-table-buttons-pagination-border)
+		text-align center
+		&:first-of-type 
+			border-left var(--easy-table-buttons-pagination-border)
+			border-top-left-radius 4px
+			border-bottom-left-radius 4px
+		&:last-of-type 
+			border-top-right-radius 4px
+			border-bottom-right-radius 4px
+		&.button 
+			&.active 
+				background-color v-bind(themeColor)
+				border-left var(--easy-table-buttons-pagination-border)
+				border-color v-bind(themeColor) !important
+				color #fff
+			&.active-prev 
+				border-right none
 </style>

@@ -186,12 +186,6 @@
                     }"
                   />
                 </template>
-                <template v-else-if="column === 'checkbox'">
-                  <SingleSelectCheckBox
-                    :checked="item[column]"
-                    @change="toggleSelectItem(item)"
-                  />
-                </template>
                 <slot
                   v-else-if="slots['item']"
                   name="item"
@@ -311,7 +305,6 @@ import {
 } from 'vue';
 
 import MultipleSelectCheckBox from './MultipleSelectCheckBox.vue';
-import SingleSelectCheckBox from './SingleSelectCheckBox.vue';
 import RowsSelector from './RowsSelector.vue';
 import Loading from './Loading.vue';
 import LoadingLine from './LoadingLine.vue';

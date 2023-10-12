@@ -97,60 +97,54 @@ onBeforeUnmount(() => {
 const themeColor = inject('themeColor');
 </script>
 
-<style scoped lang="scss">
-.easy-data-table__rows-selector {
-  display: inline-block;
-  min-width: 45px;
-  position: relative;
-  margin: 0px 10px;
-  width: var(--easy-table-rows-per-page-selector-width);
-  .rows-input__wrapper {
-    height: 20px;
-    border-bottom: 1px solid var(--easy-table-footer-font-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 5px;
-    cursor: pointer;
-    .triangle {
-      display: inline-block;
-      vertical-align: middle;
-      width: 0px;
-      height: 0px;
-      border-top: solid 6px var(--easy-table-footer-font-color);
-      border-left: solid 6px transparent;
-      border-right: solid 6px transparent;
-    }
-  }
-  ul.select-items {
-    &.show {
-      display: block;
-    }
-    &.inside {
-      bottom: 0px;
-      top: auto;
-    }
-    position: absolute;
-    top: 20px;
-    left: 0px;
-    width: 100%;
-    display: none;
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-    list-style-type: none;
-    box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
-    z-index: var(--easy-table-rows-per-page-selector-z-index);
-    li {
-      cursor: pointer;
-      padding: var(--easy-table-rows-per-page-selector-option-padding);
-      background-color: var(--easy-table-footer-background-color);
+<style scoped lang="stylus">
+@import '../scss/vue3-easy-data-table.styl';
 
-      &.selected {
-        color: #fff;
-        background-color: v-bind(themeColor);
-      }
-    }
-  }
-}
+.easy-data-table__rows-selector 
+	display inline-block
+	min-width 45px
+	position relative
+	margin 0px 10px
+	width $easy-table-rows-per-page-selector-width
+	.rows-input__wrapper 
+		height 20px
+		border-bottom 1px solid $easy-table-footer-font-color
+		display flex
+		align-items center
+		justify-content space-between
+		padding 0px 5px
+		cursor pointer
+		.triangle 
+			display inline-block
+			vertical-align middle
+			width 0px
+			height 0px
+			border-top solid 6px $easy-table-footer-font-color
+			border-left solid 6px transparent
+			border-right solid 6px transparent
+	ul 
+		&.select-items 
+			position absolute
+			top 20px
+			left 0px
+			width 100%
+			display none
+			margin 0px
+			padding 0px
+			text-align left
+			list-style-type none
+			box-shadow 0 5px 5px -3px #000, 0 8px 10px 1px #000, 0 3px 14px 2px #000
+			z-index $easy-table-rows-per-page-selector-z-index
+			&.show 
+				display block
+			&.inside 
+				bottom 0px
+				top auto
+			li 
+				cursor pointer
+				padding $easy-table-rows-per-page-selector-option-padding
+				background-color $easy-table-footer-background-color
+				&.selected 
+					color #fff
+					background-color v-bind(themeColor)
 </style>
