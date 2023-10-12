@@ -653,44 +653,6 @@ defineExpose({
 </script>
 
 <style lang="stylus">
-.vue3-easy-data-table
-	$easy-table-border 1px solid #e0e0e0
-	$easy-table-row-border 1px solid #e0e0e0
-	$easy-table-header-font-size 12px
-	$easy-table-header-height 36px
-	$easy-table-header-font-color green
-	$easy-table-header-background-color #fff
-	$easy-table-header-item-padding 0px 10px
-	$easy-table-body-row-height 36px
-	$easy-table-body-row-font-size 12px
-	$easy-table-body-row-font-color #212121
-	$easy-table-body-row-background-color #fff
-	$easy-table-body-row-hover-font-color #212121
-	$easy-table-body-row-hover-background-color #eee
-	$easy-table-body-even-row-font-color #212121
-	$easy-table-body-even-row-background-color #fafafa
-	$easy-table-body-item-padding 0px 10px
-	$easy-table-footer-background-color #fff
-	$easy-table-footer-font-color #212121
-	$easy-table-footer-font-size 12px
-	$easy-table-footer-padding 0px 5px
-	$easy-table-footer-height 36px
-	$easy-table-rows-per-page-selector-width auto
-	$easy-table-rows-per-page-selector-option-padding 5px
-	$easy-table-rows-per-page-selector-z-index auto
-	$easy-table-message-font-color #212121
-	$easy-table-message-font-size 12px
-	$easy-table-message-padding 20px
-	$easy-table-loading-mask-background-color #fff
-	$easy-table-loading-mask-opacity 0.5
-	$easy-table-scrollbar-track-color #fff
-	$easy-table-scrollbar-color #fff
-	$easy-table-scrollbar-thumb-color #c1c1c1
-	$easy-table-scrollbar-corner-color #fff
-	$easy-table-buttons-pagination-border 1px solid #e0e0e0
-</style>
-
-<style lang="stylus" scoped>
 @import '../scss/vue3-easy-data-table.styl';
 
 .vue3-easy-data-table__main

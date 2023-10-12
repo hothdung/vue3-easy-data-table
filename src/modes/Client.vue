@@ -532,34 +532,35 @@ const updateRowsPerPageSelect = (e: Event) => {
 </style>
 
 <style lang="stylus">
+@import '../scss/vue3-easy-data-table.styl';
 .hc-table 
-	$easy-table-border 1px solid #445269
-	$easy-table-row-border 1px solid #445269
-	$easy-table-header-font-size 12px
-	$easy-table-header-height 80px
-	$easy-table-header-font-color green
-	$easy-table-header-background-color #fff
-	$easy-table-body-even-row-font-color black
-	$easy-table-body-even-row-background-color #fff
-	$easy-table-body-row-font-color black
-	$easy-table-body-row-background-color #fff
-	$easy-table-body-row-height 40px
-	$easy-table-body-row-font-size 14px
-	$easy-table-body-row-hover-font-color #2d3a4f
-	$easy-table-body-row-hover-background-color #eee
-	$easy-table-footer-background-color #fff
-	$easy-table-footer-font-color black
-	$easy-table-footer-font-size 14px
-	$easy-table-footer-padding 0px 10px
-	$easy-table-footer-height 40px
-	$easy-table-rows-per-page-selector-width 70px
-	$easy-table-rows-per-page-selector-option-padding 10px
-	$easy-table-rows-per-page-selector-z-index 2
-	$easy-table-scrollbar-track-color #4c5d7a
-	$easy-table-scrollbar-color #4c5d7a
-	$easy-table-scrollbar-corner-color #4c5d7a
-	$easy-table-scrollbar-thumb-color #2d3a4f
-	$easy-table-loading-mask-background-color #2d3a4f
+	$easy-table-border = 1px solid #445269
+	$easy-table-row-border = 1px solid #445269
+	$easy-table-header-font-size = 12px
+	$easy-table-header-height = 80px
+	$easy-table-header-font-color = green
+	$easy-table-header-background-color = #fff
+	$easy-table-body-even-row-font-color = black
+	$easy-table-body-even-row-background-color = #fff
+	$easy-table-body-row-font-color = black
+	$easy-table-body-row-background-color = #fff
+	$easy-table-body-row-height = 40px
+	$easy-table-body-row-font-size = 14px
+	$easy-table-body-row-hover-font-color = #2d3a4f
+	$easy-table-body-row-hover-background-color = #eee
+	$easy-table-footer-background-color = #fff
+	$easy-table-footer-font-color = black
+	$easy-table-footer-font-size = 14px
+	$easy-table-footer-padding = 0px 10px
+	$easy-table-footer-height = 40px
+	$easy-table-rows-per-page-selector-width = 70px
+	$easy-table-rows-per-page-selector-option-padding = 10px
+	$easy-table-rows-per-page-selector-z-index = 2
+	$easy-table-scrollbar-track-color = #4c5d7a
+	$easy-table-scrollbar-color = #4c5d7a
+	$easy-table-scrollbar-corner-color = #4c5d7a
+	$easy-table-scrollbar-thumb-color = #2d3a4f
+	$easy-table-loading-mask-background-color = #2d3a4f
 .my-static-header 
 	th 
 		color white
