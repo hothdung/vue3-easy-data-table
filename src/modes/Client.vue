@@ -1,9 +1,5 @@
 <template>
   <span>search field:</span>
-  <!-- <select v-model="searchField">
-    <option>name</option>
-    <option>indicator.weight</option>
-  </select> -->
 
   <br />
   <span>search value: </span>
@@ -504,89 +500,69 @@ const updateRowsPerPageSelect = (e: Event) => {
 // };
 </script>
 
-<style scoped>
-.customize-footer {
-  margin: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.customize-footer div {
-  margin: 5px;
-}
-.customize-button {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  border-radius: 100%;
-  cursor: pointer;
-  padding: 3px;
-  line-height: 20px;
-}
-.customize-button.active {
-  color: #fff;
-  background-color: #3db07f;
-}
-.customize-pagination button {
-  margin: 0 5px;
-  cursor: pointer;
-}
-.filter-wrapper {
-  display: flex;
-  align-items: center;
-}
-.slider {
-  flex-grow: 1;
-}
+<style lang="stylus" scoped>
+.customize-footer 
+	margin 5px
+	display flex
+	flex-direction column
+	align-items center
+	div 
+		margin 5px
+.customize-button 
+	display inline-block
+	width 20px
+	height 20px
+	text-align center
+	border-radius 100%
+	cursor pointer
+	padding 3px
+	line-height 20px
+	&.active 
+		color #fff
+		background-color #3db07f
+.customize-pagination 
+	button 
+		margin 0 5px
+		cursor pointer
+.filter-wrapper 
+	display flex
+	align-items center
+.slider 
+	flex-grow 1
 </style>
 
-<style>
-.hc-table {
-  --easy-table-border: 1px solid #445269;
-  --easy-table-row-border: 1px solid #445269;
-
-  --easy-table-header-font-size: 12px;
-  --easy-table-header-height: 80px;
-  --easy-table-header-font-color: black;
-  --easy-table-header-background-color: #fff;
-
-  /* --easy-table-header-item-padding: 10px 15px; */
-
-  --easy-table-body-even-row-font-color: black;
-  --easy-table-body-even-row-background-color: #fff;
-
-  --easy-table-body-row-font-color: black;
-  --easy-table-body-row-background-color: #fff;
-  --easy-table-body-row-height: 40px;
-  --easy-table-body-row-font-size: 14px;
-
-  --easy-table-body-row-hover-font-color: #2d3a4f;
-  --easy-table-body-row-hover-background-color: #eee;
-
-  /* --easy-table-body-item-padding: 10px 15px; */
-
-  --easy-table-footer-background-color: #fff;
-  --easy-table-footer-font-color: black;
-  --easy-table-footer-font-size: 14px;
-  --easy-table-footer-padding: 0px 10px;
-  --easy-table-footer-height: 40px;
-
-  --easy-table-rows-per-page-selector-width: 70px;
-  --easy-table-rows-per-page-selector-option-padding: 10px;
-  --easy-table-rows-per-page-selector-z-index: 2;
-
-  --easy-table-scrollbar-track-color: #4c5d7a;
-  --easy-table-scrollbar-color: #4c5d7a;
-  --easy-table-scrollbar-corner-color: #4c5d7a;
-  --easy-table-scrollbar-thumb-color: #2d3a4f;
-
-  --easy-table-loading-mask-background-color: #2d3a4f;
-}
-
-.my-static-header th {
-  color: white;
-  border-right: 1px solid #445269;
-  border-bottom: 1px solid #445269;
-}
+<style lang="stylus">
+.hc-table 
+	$easy-table-border 1px solid #445269
+	$easy-table-row-border 1px solid #445269
+	$easy-table-header-font-size 12px
+	$easy-table-header-height 80px
+	$easy-table-header-font-color green
+	$easy-table-header-background-color #fff
+	$easy-table-body-even-row-font-color black
+	$easy-table-body-even-row-background-color #fff
+	$easy-table-body-row-font-color black
+	$easy-table-body-row-background-color #fff
+	$easy-table-body-row-height 40px
+	$easy-table-body-row-font-size 14px
+	$easy-table-body-row-hover-font-color #2d3a4f
+	$easy-table-body-row-hover-background-color #eee
+	$easy-table-footer-background-color #fff
+	$easy-table-footer-font-color black
+	$easy-table-footer-font-size 14px
+	$easy-table-footer-padding 0px 10px
+	$easy-table-footer-height 40px
+	$easy-table-rows-per-page-selector-width 70px
+	$easy-table-rows-per-page-selector-option-padding 10px
+	$easy-table-rows-per-page-selector-z-index 2
+	$easy-table-scrollbar-track-color #4c5d7a
+	$easy-table-scrollbar-color #4c5d7a
+	$easy-table-scrollbar-corner-color #4c5d7a
+	$easy-table-scrollbar-thumb-color #2d3a4f
+	$easy-table-loading-mask-background-color #2d3a4f
+.my-static-header 
+	th 
+		color white
+		border-right 1px solid #445269
+		border-bottom 1px solid #445269
 </style>

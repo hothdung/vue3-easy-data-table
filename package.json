@@ -38,6 +38,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "stylus": "^0.60.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {

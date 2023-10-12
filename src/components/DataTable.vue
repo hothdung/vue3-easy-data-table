@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="dataTable"
-    class="vue3-easy-data-table"
-    :class="[tableClassName]"
-  >
+  <div ref="dataTable" class="vue3-easy-data-table" :class="[tableClassName]">
     <div
       ref="tableBody"
       class="vue3-easy-data-table__main"
@@ -12,7 +8,7 @@
         'fixed-height': tableHeight,
         'show-shadow': showShadow,
         'table-fixed': fixedHeaders.length,
-        'hoverable': !noHover,
+        hoverable: !noHover,
         'border-cell': borderCell,
       }"
     >
@@ -24,10 +20,7 @@
             :style="getColStyle(header)"
           />
         </colgroup>
-        <slot
-          v-if="slots['customize-headers']"
-          name="customize-headers"
-        />
+        <slot v-if="slots['customize-headers']" name="customize-headers" />
         <thead
           v-else-if="headersForRender.length && !hideHeader"
           class="vue3-easy-data-table__header"
@@ -46,7 +39,11 @@
               // eslint-disable-next-line max-len
               }, typeof headerItemClassName === 'string' ? headerItemClassName : headerItemClassName(header as Header, index + 1)]"
               :style="getFixedDistance(header.value)"
-              @click.stop="(header.sortable && header.sortType) ? updateSortField(header.value, header.sortType) : null"
+              @click.stop="
+                header.sortable && header.sortType
+                  ? updateSortField(header.value, header.sortType)
+                  : null
+              "
             >
               <MultipleSelectCheckBox
                 v-if="header.text === 'checkbox'"
@@ -73,18 +70,15 @@
                   v-else-if="slots['header']"
                   name="header"
                   v-bind="header"
-                />   
-                <span
-                  v-else
-                  class="header-text"
-                >
+                />
+                <span v-else class="header-text">
                   {{ header.text }}
                 </span>
                 <i
                   v-if="header.sortable"
                   :key="header.sortType ? header.sortType : 'none'"
                   class="sortType-icon"
-                  :class="{'desc': header.sortType === 'desc'}"
+                  :class="{ desc: header.sortType === 'desc' }"
                 ></i>
                 <span
                   v-if="multiSort && isMultiSorting(header.value)"
@@ -96,15 +90,11 @@
             </th>
           </tr>
         </thead>
-        <slot
-          v-if="ifHasBodySlot"
-          name="body"
-          v-bind="pageItems"
-        />
+        <slot v-if="ifHasBodySlot" name="body" v-bind="pageItems" />
         <tbody
           v-else-if="headerColumns.length"
           class="vue3-easy-data-table__body"
-          :class="{'row-alternation': alternating}"
+          :class="{ 'row-alternation': alternating }"
         >
           <slot
             name="body-prepend"
@@ -116,36 +106,66 @@
                 currentPaginationNumber,
                 maxPaginationNumber,
                 nextPage,
-                prevPage
+                prevPage,
               },
-              headers: headersForRender
+              headers: headersForRender,
             }"
           />
-          <template
-            v-for="(item, index) in pageItems"
-            :key="index"
-          >
+          <template v-for="(item, index) in pageItems" :key="index">
             <tr
-              :class="[{'even-row': (index + 1) % 2 === 0},
-                       typeof bodyRowClassName === 'string' ? bodyRowClassName : bodyRowClassName(item, index + 1)]"
-              @click="($event) => {
-                clickRow(item, 'single', $event);
-                clickRowToExpand && updateExpandingItemIndexList(index + prevPageEndIndex, item, $event);
-              }"
-              @dblclick="($event) => {clickRow(item, 'double', $event)}"
-              @contextmenu="($event) => {contextMenuRow(item, $event)}"
+              :class="[
+                { 'even-row': (index + 1) % 2 === 0 },
+                typeof bodyRowClassName === 'string'
+                  ? bodyRowClassName
+                  : bodyRowClassName(item, index + 1),
+              ]"
+              @click="
+                ($event) => {
+                  clickRow(item, 'single', $event);
+                  clickRowToExpand &&
+                    updateExpandingItemIndexList(
+                      index + prevPageEndIndex,
+                      item,
+                      $event
+                    );
+                }
+              "
+              @dblclick="
+                ($event) => {
+                  clickRow(item, 'double', $event);
+                }
+              "
+              @contextmenu="
+                ($event) => {
+                  contextMenuRow(item, $event);
+                }
+              "
             >
               <td
                 v-for="(column, i) in headerColumns"
                 :key="i"
                 :style="getFixedDistance(column, 'td')"
-                :class="[{
-                  'shadow': column === lastFixedColumn,
-                  'can-expand': column === 'expand',
-                // eslint-disable-next-line max-len
-                }, typeof bodyItemClassName === 'string' ? bodyItemClassName : bodyItemClassName(column, index + 1), `direction-${bodyTextDirection}`]"
-                @click="column === 'expand' ? updateExpandingItemIndexList(index + prevPageEndIndex, item, $event) : null"
-              > 
+                :class="[
+                  {
+                    shadow: column === lastFixedColumn,
+                    'can-expand': column === 'expand',
+                    // eslint-disable-next-line max-len
+                  },
+                  typeof bodyItemClassName === 'string'
+                    ? bodyItemClassName
+                    : bodyItemClassName(column, index + 1),
+                  `direction-${bodyTextDirection}`,
+                ]"
+                @click="
+                  column === 'expand'
+                    ? updateExpandingItemIndexList(
+                        index + prevPageEndIndex,
+                        item,
+                        $event
+                      )
+                    : null
+                "
+              >
                 <slot
                   v-if="slots[`item-${column}`]"
                   :name="`item-${column}`"
@@ -159,7 +179,11 @@
                 <template v-else-if="column === 'expand'">
                   <i
                     class="expand-icon"
-                    :class="{'expanding': expandingItemIndexList.includes(prevPageEndIndex + index)}"
+                    :class="{
+                      expanding: expandingItemIndexList.includes(
+                        prevPageEndIndex + index
+                      ),
+                    }"
                   />
                 </template>
                 <template v-else-if="column === 'checkbox'">
@@ -171,7 +195,7 @@
                 <slot
                   v-else-if="slots['item']"
                   name="item"
-                  v-bind="{column, item}"
+                  v-bind="{ column, item }"
                 />
                 <template v-else>
                   {{ generateColumnContent(column, item) }}
@@ -179,22 +203,20 @@
               </td>
             </tr>
             <tr
-              v-if="ifHasExpandSlot && expandingItemIndexList.includes(index + prevPageEndIndex)"
-              :class="[{'even-row': (index + 1) % 2 === 0},
-                       typeof bodyExpandRowClassName === 'string' ? bodyExpandRowClassName : bodyExpandRowClassName(item, index + 1)]"
+              v-if="
+                ifHasExpandSlot &&
+                expandingItemIndexList.includes(index + prevPageEndIndex)
+              "
+              :class="[
+                { 'even-row': (index + 1) % 2 === 0 },
+                typeof bodyExpandRowClassName === 'string'
+                  ? bodyExpandRowClassName
+                  : bodyExpandRowClassName(item, index + 1),
+              ]"
             >
-              <td
-                :colspan="headersForRender.length"
-                class="expand"
-              >
-                <LoadingLine
-                  v-if="item.expandLoading"
-                  class="expand-loading"
-                />
-                <slot
-                  name="expand"
-                  v-bind="item"
-                />
+              <td :colspan="headersForRender.length" class="expand">
+                <LoadingLine v-if="item.expandLoading" class="expand-loading" />
+                <slot name="expand" v-bind="item" />
               </td>
             </tr>
           </template>
@@ -209,25 +231,17 @@
                 maxPaginationNumber,
                 nextPage,
                 prevPage,
-                updatePage
+                updatePage,
               },
-              headers: headersForRender
+              headers: headersForRender,
             }"
           />
         </tbody>
       </table>
-      <div
-        v-if="loading"
-        class="vue3-easy-data-table__loading"
-      >
-        <div
-          class="vue3-easy-data-table__loading-mask "
-        ></div>
+      <div v-if="loading" class="vue3-easy-data-table__loading">
+        <div class="vue3-easy-data-table__loading-mask"></div>
         <div class="loading-entity">
-          <slot
-            v-if="ifHasLoadingSlot"
-            name="loading"
-          />
+          <slot v-if="ifHasLoadingSlot" name="loading" />
           <Loading v-else></Loading>
         </div>
       </div>
@@ -241,14 +255,8 @@
         </slot>
       </div>
     </div>
-    <div
-      v-if="!hideFooter"
-      class="vue3-easy-data-table__footer"
-    >
-      <div
-        v-if="!hideRowsPerPage"
-        class="pagination__rows-per-page"
-      >
+    <div v-if="!hideFooter" class="vue3-easy-data-table__footer">
+      <div v-if="!hideRowsPerPage" class="pagination__rows-per-page">
         {{ rowsPerPageMessage }}
         <RowsSelector
           v-model="rowsPerPageRef"
@@ -278,10 +286,7 @@
         @click-next-page="nextPage"
         @click-prev-page="prevPage"
       >
-        <template
-          v-if="buttonsPagination"
-          #buttonsPagination
-        >
+        <template v-if="buttonsPagination" #buttonsPagination>
           <ButtonsPagination
             :current-pagination-number="currentPaginationNumber"
             :max-pagination-number="maxPaginationNumber"
@@ -295,7 +300,14 @@
 
 <script setup lang="ts">
 import {
-  useSlots, computed, toRefs, ref, watch, provide, onMounted, PropType,
+  useSlots,
+  computed,
+  toRefs,
+  ref,
+  watch,
+  provide,
+  onMounted,
+  PropType,
 } from 'vue';
 
 import MultipleSelectCheckBox from './MultipleSelectCheckBox.vue';
@@ -375,7 +387,9 @@ const {
 } = toRefs(props);
 
 // style related computed variables
-const tableHeightPx = computed(() => (tableHeight.value ? `${tableHeight.value}px` : null));
+const tableHeightPx = computed(() =>
+  tableHeight.value ? `${tableHeight.value}px` : null
+);
 const tableMinHeightPx = computed(() => `${tableMinHeight.value}px`);
 
 // global style related variable
@@ -413,10 +427,12 @@ const emits = defineEmits([
   'update:serverOptions',
   'updatePageItems',
   'updateTotalItems',
-  'selectAll'
+  'selectAll',
 ]);
 
-const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
+const isMultipleSelectable = computed(
+  (): boolean => itemsSelected.value !== null
+);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
 
 const {
@@ -424,11 +440,7 @@ const {
   updateServerOptionsPage,
   updateServerOptionsSort,
   updateServerOptionsRowsPerPage,
-} = useServerOptions(
-  serverOptions,
-  multiSort,
-  emits,
-);
+} = useServerOptions(serverOptions, multiSort, emits);
 
 const {
   clientSortOptions,
@@ -456,18 +468,14 @@ const {
   sortType,
   multiSort,
   updateServerOptionsSort,
-  emits,
+  emits
 );
 
-const {
-  rowsItemsComputed,
-  rowsPerPageRef,
-  updateRowsPerPage,
-} = useRows(
+const { rowsItemsComputed, rowsPerPageRef, updateRowsPerPage } = useRows(
   isServerSideMode,
   rowsItems,
   serverOptions,
-  rowsPerPage,
+  rowsPerPage
 );
 
 const {
@@ -488,7 +496,7 @@ const {
   multiSort,
   sortFunction,
   multiSortFunction,
-  emits,
+  emits
 );
 
 const {
@@ -507,7 +515,7 @@ const {
   totalItemsLength,
   rowsPerPageRef,
   serverOptions,
-  updateServerOptionsPage,
+  updateServerOptionsPage
 );
 
 const {
@@ -524,7 +532,7 @@ const {
   selectItemsComputed,
   showIndex,
   totalItems,
-  totalItemsLength,
+  totalItemsLength
 );
 
 const prevPageEndIndex = computed(() => {
@@ -536,33 +544,22 @@ const {
   expandingItemIndexList,
   updateExpandingItemIndexList,
   clearExpandingItemIndexList,
-} = useExpandableRow(
-  pageItems,
-  prevPageEndIndex,
-  emits,
-);
+} = useExpandableRow(pageItems, prevPageEndIndex, emits);
 
-const {
-  fixedHeaders,
-  lastFixedColumn,
-  fixedColumnsInfos,
-} = useFixedColumn(
-  headersForRender,
-);
+const { fixedHeaders, lastFixedColumn, fixedColumnsInfos } =
+  useFixedColumn(headersForRender);
 
-const {
-  clickRow,
-} = useClickRow(
+const { clickRow } = useClickRow(
   clickEventType,
   isMultipleSelectable,
   showIndex,
-  emits,
+  emits
 );
 
 const contextMenuRow = (item: Item, $event: MouseEvent) => {
   if (preventContextMenuRow.value) $event.preventDefault();
   emits('contextmenuRow', item, $event);
-}
+};
 
 // template style generation function
 const getColStyle = (header: HeaderForRender): string | undefined => {
@@ -573,9 +570,13 @@ const getColStyle = (header: HeaderForRender): string | undefined => {
 
 const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
   if (!fixedHeaders.value.length) return undefined;
-  const columInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+  const columInfo = fixedColumnsInfos.value.find(
+    (info) => info.value === column
+  );
   if (columInfo) {
-    return `left: ${columInfo.distance}px;z-index: ${type === 'th' ? 3 : 1};position: sticky;`;
+    return `left: ${columInfo.distance}px;z-index: ${
+      type === 'th' ? 3 : 1
+    };position: sticky;`;
   }
   return undefined;
 };
@@ -604,18 +605,35 @@ watch([searchValue, filterOptions], () => {
   }
 });
 
-watch([currentPaginationNumber, clientSortOptions, searchField, searchValue, filterOptions], () => {
-  clearExpandingItemIndexList();
-}, { deep: true });
+watch(
+  [
+    currentPaginationNumber,
+    clientSortOptions,
+    searchField,
+    searchValue,
+    filterOptions,
+  ],
+  () => {
+    clearExpandingItemIndexList();
+  },
+  { deep: true }
+);
 
-watch(pageItems, (value) => {
-  emits('updatePageItems', value);
-}, { deep: true });
+watch(
+  pageItems,
+  (value) => {
+    emits('updatePageItems', value);
+  },
+  { deep: true }
+);
 
-watch(totalItems, (value) => {
-  emits('updateTotalItems', value);
-}, { deep: true });
-
+watch(
+  totalItems,
+  (value) => {
+    emits('updateTotalItems', value);
+  },
+  { deep: true }
+);
 
 defineExpose({
   currentPageFirstIndex,
@@ -632,69 +650,51 @@ defineExpose({
   rowsPerPageActiveOption: rowsPerPageRef,
   updateRowsPerPageActiveOption: updateRowsPerPage,
 });
-
 </script>
 
-<style>
-  :root {
-    /*table*/
-    --easy-table-border: 1px solid #e0e0e0;
-    --easy-table-row-border: 1px solid #e0e0e0;
-    /*header-row*/
-    --easy-table-header-font-size: 12px;
-    --easy-table-header-height: 36px;
-    --easy-table-header-font-color: #373737;
-    --easy-table-header-background-color: #fff;
-    /*header-item*/
-    --easy-table-header-item-padding: 0px 10px;
-    /*body-row*/
-    --easy-table-body-row-height: 36px;
-    --easy-table-body-row-font-size: 12px;
-
-    --easy-table-body-row-font-color: #212121;
-    --easy-table-body-row-background-color: #fff;
-
-    --easy-table-body-row-hover-font-color: #212121;
-    --easy-table-body-row-hover-background-color: #eee;
-
-    --easy-table-body-even-row-font-color: #212121;
-    --easy-table-body-even-row-background-color: #fafafa;
-    /*body-item*/
-    --easy-table-body-item-padding: 0px 10px;
-    /*footer*/
-    --easy-table-footer-background-color: #fff;
-    --easy-table-footer-font-color: #212121;
-    --easy-table-footer-font-size: 12px;
-    --easy-table-footer-padding: 0px 5px;
-    --easy-table-footer-height: 36px;
-    /**footer-rowsPerPage**/
-    --easy-table-rows-per-page-selector-width: auto;
-    --easy-table-rows-per-page-selector-option-padding: 5px;
-    --easy-table-rows-per-page-selector-z-index: auto;
-    /*message*/
-    --easy-table-message-font-color: #212121;
-    --easy-table-message-font-size: 12px;
-    --easy-table-message-padding: 20px;
-    /*loading-mask*/
-    --easy-table-loading-mask-background-color: #fff;
-    --easy-table-loading-mask-opacity: 0.5;
-    /*scroll-bar*/
-    --easy-table-scrollbar-track-color: #fff;
-    --easy-table-scrollbar-color: #fff;
-    --easy-table-scrollbar-thumb-color: #c1c1c1;
-    --easy-table-scrollbar-corner-color: #fff;
-    /*buttons-pagination*/
-    --easy-table-buttons-pagination-border: 1px solid #e0e0e0;
-  }
+<style lang="stylus">
+.vue3-easy-data-table
+	$easy-table-border 1px solid #e0e0e0
+	$easy-table-row-border 1px solid #e0e0e0
+	$easy-table-header-font-size 12px
+	$easy-table-header-height 36px
+	$easy-table-header-font-color green
+	$easy-table-header-background-color #fff
+	$easy-table-header-item-padding 0px 10px
+	$easy-table-body-row-height 36px
+	$easy-table-body-row-font-size 12px
+	$easy-table-body-row-font-color #212121
+	$easy-table-body-row-background-color #fff
+	$easy-table-body-row-hover-font-color #212121
+	$easy-table-body-row-hover-background-color #eee
+	$easy-table-body-even-row-font-color #212121
+	$easy-table-body-even-row-background-color #fafafa
+	$easy-table-body-item-padding 0px 10px
+	$easy-table-footer-background-color #fff
+	$easy-table-footer-font-color #212121
+	$easy-table-footer-font-size 12px
+	$easy-table-footer-padding 0px 5px
+	$easy-table-footer-height 36px
+	$easy-table-rows-per-page-selector-width auto
+	$easy-table-rows-per-page-selector-option-padding 5px
+	$easy-table-rows-per-page-selector-z-index auto
+	$easy-table-message-font-color #212121
+	$easy-table-message-font-size 12px
+	$easy-table-message-padding 20px
+	$easy-table-loading-mask-background-color #fff
+	$easy-table-loading-mask-opacity 0.5
+	$easy-table-scrollbar-track-color #fff
+	$easy-table-scrollbar-color #fff
+	$easy-table-scrollbar-thumb-color #c1c1c1
+	$easy-table-scrollbar-corner-color #fff
+	$easy-table-buttons-pagination-border 1px solid #e0e0e0
 </style>
 
-<style lang="scss" scoped>
-@import '../scss/vue3-easy-data-table.scss';
+<style lang="stylus" scoped>
+@import '../scss/vue3-easy-data-table.styl';
 
-.vue3-easy-data-table__main {
-  min-height: v-bind(tableMinHeightPx);
-}
-.vue3-easy-data-table__main.fixed-height {
-  height: v-bind(tableHeightPx);
-}
+.vue3-easy-data-table__main
+	min-height v-bind(tableMinHeightPx)
+	&.fixed-height
+		height v-bind(tableHeightPx)
 </style>
