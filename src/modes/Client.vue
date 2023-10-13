@@ -527,7 +527,7 @@ const updateRowsPerPageSelect = (e: Event) => {
 </style>
 
 <style lang="stylus">
-@import '../scss/vue3-easy-data-table.styl';
+@import '~@/scss/vue3-easy-data-table.styl';
 .hc-table
 	$easy-table-border = 1px solid #445269
 	$easy-table-row-border = 1px solid #445269
