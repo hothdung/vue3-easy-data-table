@@ -1,9 +1,5 @@
 <template>
   <span>search field:</span>
-  <!-- <select v-model="searchField">
-    <option>name</option>
-    <option>indicator.weight</option>
-  </select> -->
 
   <br />
   <span>search value: </span>
@@ -11,13 +7,9 @@
   <div>
     <DataTable
       table-node-id="my-table"
-      v-model:items-selected="itemsSelected"
       click-row-to-expand
       ref="dataTable"
-      alternating
       border-cell
-      no-hover
-      show-index
       :headers="headers"
       :items="items"
       :search-field="searchField"
@@ -40,7 +32,6 @@
       @deselect-row="deselectRow"
       @update-page-items="updateItems"
       @update-total-items="updateTotalItems"
-      show-index-symbol="$"
     >
       <!-- <template #customize-headers>
         <thead class="my-static-header">
@@ -553,20 +544,20 @@ const updateRowsPerPageSelect = (e: Event) => {
 
   /* --easy-table-header-item-padding: 10px 15px; */
 
-  --easy-table-body-even-row-font-color: black;
-  --easy-table-body-even-row-background-color: #fff;
+  --easy-table-body-even-row-font-color: #fff;
+  --easy-table-body-even-row-background-color: #4c5d7a;
 
   --easy-table-body-row-font-color: black;
   --easy-table-body-row-background-color: #fff;
   --easy-table-body-row-height: 40px;
   --easy-table-body-row-font-size: 14px;
 
-  --easy-table-body-row-hover-font-color: #2d3a4f;
+  --easy-table-body-row-hover-font-color: #fff;
   --easy-table-body-row-hover-background-color: #eee;
 
   /* --easy-table-body-item-padding: 10px 15px; */
 
-  --easy-table-footer-background-color: #fff;
+  --easy-table-footer-background-color: #fff;;
   --easy-table-footer-font-color: black;
   --easy-table-footer-font-size: 14px;
   --easy-table-footer-padding: 0px 10px;
@@ -589,4 +580,5 @@ const updateRowsPerPageSelect = (e: Event) => {
   border-right: 1px solid #445269;
   border-bottom: 1px solid #445269;
 }
+
 </style>
