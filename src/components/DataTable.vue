@@ -646,7 +646,7 @@ defineExpose({
 </script>
 
 <style lang="stylus">
-@import '../scss/vue3-easy-data-table.styl';
+@import '../scss/vue3-easy-data-table.styl'
 
 .vue3-easy-data-table__main
 	min-height v-bind(tableMinHeightPx)

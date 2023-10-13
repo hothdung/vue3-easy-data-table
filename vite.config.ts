@@ -2,8 +2,8 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
-import {resolve } from 'node:path';
-import vitePluginStylusAlias from 'vite-plugin-stylus-alias';
+import { resolve } from 'node:path';
+import stylusAlias from './src/scripts/stylusAlias';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), vitePluginStylusAlias()],
+  plugins: [vue(), stylusAlias()],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
