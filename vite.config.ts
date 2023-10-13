@@ -22,7 +22,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), stylusAlias()],
+  plugins: [vue()],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {

@@ -648,6 +648,7 @@ defineExpose({
 <style lang="stylus">
 @import '../scss/vue3-easy-data-table.styl'
 
+$easy-table-header-font-color = green
 .vue3-easy-data-table__main
 	min-height v-bind(tableMinHeightPx)
 	&.fixed-height
