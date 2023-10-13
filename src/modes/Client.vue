@@ -539,7 +539,6 @@ const updateRowsPerPageSelect = (e: Event) => {
 
   --easy-table-header-font-size: 12px;
   --easy-table-header-height: 80px;
-  --easy-table-header-font-color: black;
   --easy-table-header-background-color: #fff;
 
   /* --easy-table-header-item-padding: 10px 15px; */
