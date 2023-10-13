@@ -552,7 +552,7 @@ const updateRowsPerPageSelect = (e: Event) => {
   --easy-table-body-row-height: 40px;
   --easy-table-body-row-font-size: 14px;
 
-  --easy-table-body-row-hover-font-color: #fff;
+  --easy-table-body-row-hover-font-color: black;
   --easy-table-body-row-hover-background-color: #eee;
 
   /* --easy-table-body-item-padding: 10px 15px; */
