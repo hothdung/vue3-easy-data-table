@@ -644,7 +644,7 @@ defineExpose({
     --easy-table-header-font-size: 12px;
     --easy-table-header-height: 36px;
     --easy-table-header-font-color: #373737;
-    --easy-table-header-background-color: #fff;
+    --easy-table-header-background-color: transparent;
     /*header-item*/
     --easy-table-header-item-padding: 0px 10px;
     /*body-row*/

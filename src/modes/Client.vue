@@ -56,21 +56,6 @@
         <div style="padding: 15px">{{ item.name }} won championships</div>
       </template>
 
-      <template #header-name="header">
-        <div class="filter-column">
-          <span
-            class="filter-icon"
-            @click.stop="showNameFilter = !showNameFilter"
-          >
-            icon
-          </span>
-          {{ header.text }}
-          <div v-if="showNameFilter" class="filter-menu filter-age-menu">
-            <input v-model="nameCriteria" />
-          </div>
-        </div>
-      </template>
-
       <!-- <template #item="{column, item}">
         <div style="padding: 15px">
           column: {{ column }} item: {{ item }}
@@ -144,12 +129,12 @@ const switchToNested = () => {
 };
 const headers: Header[] = [
   { text: 'Name', value: 'name', sortable: true },
-  { text: 'NUMBER', value: 'number', sortable: true },
-  { text: 'ARRIVAL DATE', value: 'arrivalDate', sortable: true },
-  { text: 'WEIGHT (lbs)', value: 'weight', sortable: true },
-  { text: 'LAST ATTENDED', value: 'lastAttended', width: 200, sortable: true },
-  { text: 'COUNTRY', value: 'country', sortable: true },
-  { text: 'STATUS', value: 'status', sortable: true },
+  { text: 'Number', value: 'number', sortable: true },
+  { text: 'Arrival Date', value: 'arrivalDate', sortable: true },
+  { text: 'Weight (lbs)', value: 'weight', sortable: true },
+  { text: 'Last Attended', value: 'lastAttended', width: 200, sortable: true },
+  { text: 'Country', value: 'country', sortable: true },
+  { text: 'Status', value: 'status', sortable: true },
 ];
 
 // const headers: Header[] = headersMocked;
@@ -539,7 +524,7 @@ const updateRowsPerPageSelect = (e: Event) => {
 
   --easy-table-header-font-size: 12px;
   --easy-table-header-height: 80px;
-  --easy-table-header-background-color: #fff;
+  --easy-table-header-background-color: transparent;
 
   /* --easy-table-header-item-padding: 10px 15px; */
 
@@ -549,7 +534,7 @@ const updateRowsPerPageSelect = (e: Event) => {
   --easy-table-body-row-font-color: black;
   --easy-table-body-row-background-color: #fff;
   --easy-table-body-row-height: 40px;
-  --easy-table-body-row-font-size: 14px;
+  --easy-table-body-row-font-size: 16px;
 
   --easy-table-body-row-hover-font-color: black;
   --easy-table-body-row-hover-background-color: #eee;
@@ -575,9 +560,9 @@ const updateRowsPerPageSelect = (e: Event) => {
 }
 
 .my-static-header th {
-  color: white;
-  border-right: 1px solid #445269;
-  border-bottom: 1px solid #445269;
+/*   color: white; */
+/*   border-right: 1px solid #445269;
+  border-bottom: 1px solid #445269; */
 }
 
 </style>
