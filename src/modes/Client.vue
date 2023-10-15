@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, reactive, toRefs, onMounted } from 'vue';
+import { computed, ref, reactive, toRefs, onMounted } from "vue";
 // import { useRowsPerPage } from 'use-vue3-easy-data-table';
 // import type { UseRowsPerPageReturn } from 'use-vue3-easy-data-table';
 import type {
@@ -99,27 +99,27 @@ import type {
   BodyItemClassNameFunction,
   BodyRowClassNameFunction,
   TextDirection,
-} from '../types/main';
-import DataTable from '../components/DataTable.vue';
+} from "../types/main";
+import DataTable from "../components/DataTable.vue";
 import {
   mockClientNestedItems,
   mockClientItems,
   mockDuplicateClientNestedItems,
   headersMocked,
-} from '../mock';
-import { getItemValue as getItemValueFn } from '../utils';
+} from "../mock";
+import { getItemValue as getItemValueFn } from "../utils";
 import {
   sortByDayjs,
   sortByNumber,
   sortByStatus,
   sortByString,
-} from '../comparators/TableComparator';
-import dayjs from 'dayjs';
+} from "../comparators/TableComparator";
+import dayjs from "dayjs";
 
-const searchField = ref('name');
-const searchValue = ref('');
-const sortBy = ref(['number', 'number']);
-const sortType = ref<SortType[]>(['desc', 'asc']);
+const searchField = ref("name");
+const searchValue = ref("");
+const sortBy = ref(["number", "number"]);
+const sortType = ref<SortType[]>(["desc", "asc"]);
 const switchToNested300 = () => {
   items.value = mockClientNestedItems(300);
 };
@@ -156,154 +156,154 @@ const updateTotalItems = (items: Item[]) => {
 
 const items = ref<Item[]>([
   {
-    name: 'Stephen Curry',
-    firstName: 'GSW',
+    name: "Stephen Curry",
+    firstName: "GSW",
     number: 30,
-    arrivalDate: dayjs('2023-03-19 19:18').locale('de'),
+    arrivalDate: dayjs("2023-03-19 19:18").locale("de"),
     weight: 185,
-    lastAttended: 'Davidson',
-    country: 'USA',
-    status: 'Storniert',
+    lastAttended: "Davidson",
+    country: "USA",
+    status: "Storniert",
   },
   {
-    name: 'Kevin Durant',
-    firstName: 'BKN',
+    name: "Kevin Durant",
+    firstName: "BKN",
     number: 7,
-    arrivalDate: dayjs('2022-12-19 20:18').locale('de'),
+    arrivalDate: dayjs("2022-12-19 20:18").locale("de"),
     weight: 240,
-    lastAttended: 'Texas-Austin',
-    country: 'USA',
-    status: 'Storniert',
+    lastAttended: "Texas-Austin",
+    country: "USA",
+    status: "Storniert",
   },
   {
-    name: 'Lebron James',
-    firstName: 'LAL',
+    name: "Lebron James",
+    firstName: "LAL",
     number: 7,
-    arrivalDate: dayjs('2022-11-08 15:12').locale('de'),
+    arrivalDate: dayjs("2022-11-08 15:12").locale("de"),
     weight: 185,
-    lastAttended: 'St. Vincent-St. Mary HS (OH)',
-    country: 'USA',
-    status: 'Gesperrt',
+    lastAttended: "St. Vincent-St. Mary HS (OH)",
+    country: "USA",
+    status: "Gesperrt",
   },
   {
-    name: 'Giannis Antetokounmpo',
-    firstName: 'MIL',
+    name: "Giannis Antetokounmpo",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2023-03-03 11:12').locale('de'),
+    arrivalDate: dayjs("2023-03-03 11:12").locale("de"),
     weight: 242,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Gesperrt',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Gesperrt",
   },
   {
-    name: 'HC',
-    firstName: 'MIL',
+    name: "HC",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2022-03-30 10:15').locale('de'),
+    arrivalDate: dayjs("2022-03-30 10:15").locale("de"),
     weight: 243,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Abgeschlossen',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Abgeschlossen",
   },
   {
-    name: 'Stephen Curry',
-    firstName: 'GSW',
+    name: "Stephen Curry",
+    firstName: "GSW",
     number: 30,
-    arrivalDate: dayjs('2023-07-29 10:15').locale('de'),
+    arrivalDate: dayjs("2023-07-29 10:15").locale("de"),
     weight: 185,
-    lastAttended: 'Davidson',
-    country: 'USA',
-    status: 'Abgeschlossen',
+    lastAttended: "Davidson",
+    country: "USA",
+    status: "Abgeschlossen",
   },
   {
-    name: 'Kevin Durant',
-    firstName: 'BKN',
+    name: "Kevin Durant",
+    firstName: "BKN",
     number: 7,
-    arrivalDate: dayjs('2023-06-24 09:12').locale('de'),
+    arrivalDate: dayjs("2023-06-24 09:12").locale("de"),
     weight: 240,
-    lastAttended: 'Texas-Austin',
-    country: 'USA',
-    status: 'Storniert',
+    lastAttended: "Texas-Austin",
+    country: "USA",
+    status: "Storniert",
   },
   {
-    name: 'Lebron James',
-    firstName: 'LAL',
+    name: "Lebron James",
+    firstName: "LAL",
     number: 7,
-    arrivalDate: dayjs('2023-04-24 09:30').locale('de'),
+    arrivalDate: dayjs("2023-04-24 09:30").locale("de"),
     weight: 185,
-    lastAttended: 'St. Vincent-St. Mary HS (OH)',
-    country: 'USA',
-    status: 'Gesperrt',
+    lastAttended: "St. Vincent-St. Mary HS (OH)",
+    country: "USA",
+    status: "Gesperrt",
   },
   {
-    name: 'Giannis Antetokounmpo',
-    firstName: 'MIL',
+    name: "Giannis Antetokounmpo",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2023-05-24 10:30').locale('de'),
+    arrivalDate: dayjs("2023-05-24 10:30").locale("de"),
     weight: 242,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Storniert',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Storniert",
   },
   {
-    name: 'HC',
-    firstName: 'MIL',
+    name: "HC",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2023-05-21 16:30').locale('de'),
+    arrivalDate: dayjs("2023-05-21 16:30").locale("de"),
     weight: 243,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Abgeschlossen',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Abgeschlossen",
   },
   {
-    name: 'Stephen Curry',
-    firstName: 'GSW',
+    name: "Stephen Curry",
+    firstName: "GSW",
     number: 30,
-    arrivalDate: dayjs('2021-12-24 20:15').locale('de'),
+    arrivalDate: dayjs("2021-12-24 20:15").locale("de"),
     weight: 185,
-    lastAttended: 'Davidson',
-    country: 'USA',
-    status: 'Abgeschlossen',
+    lastAttended: "Davidson",
+    country: "USA",
+    status: "Abgeschlossen",
   },
   {
-    name: 'Kevin Durant',
-    firstName: 'BKN',
+    name: "Kevin Durant",
+    firstName: "BKN",
     number: 7,
-    arrivalDate: dayjs('2022-12-30 20:15').locale('de'),
+    arrivalDate: dayjs("2022-12-30 20:15").locale("de"),
     weight: 240,
-    lastAttended: 'Texas-Austin',
-    country: 'USA',
-    status: 'Storniert',
+    lastAttended: "Texas-Austin",
+    country: "USA",
+    status: "Storniert",
   },
   {
-    name: 'Lebron James',
-    firstName: 'LAL',
+    name: "Lebron James",
+    firstName: "LAL",
     number: 7,
-    arrivalDate: dayjs('2023-09-30 18:00').locale('de'),
+    arrivalDate: dayjs("2023-09-30 18:00").locale("de"),
     weight: 185,
-    lastAttended: 'St. Vincent-St. Mary HS (OH)',
-    country: 'USA',
-    status: 'Gesperrt',
+    lastAttended: "St. Vincent-St. Mary HS (OH)",
+    country: "USA",
+    status: "Gesperrt",
   },
   {
-    name: 'Giannis Antetokounmpo',
-    firstName: 'MIL',
+    name: "Giannis Antetokounmpo",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2023-10-24 14:00').locale('de'),
+    arrivalDate: dayjs("2023-10-24 14:00").locale("de"),
     weight: 242,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Gesperrt',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Gesperrt",
   },
   {
-    name: 'HC',
-    firstName: 'MIL',
+    name: "HC",
+    firstName: "MIL",
     number: 34,
-    arrivalDate: dayjs('2023-06-21 13:00').locale('de'),
+    arrivalDate: dayjs("2023-06-21 13:00").locale("de"),
     weight: 243,
-    lastAttended: 'Filathlitikos',
-    country: 'Greece',
-    status: 'Abgeschlossen',
+    lastAttended: "Filathlitikos",
+    country: "Greece",
+    status: "Abgeschlossen",
   },
 ]);
 
@@ -319,7 +319,7 @@ const items = ref<Item[]>([
 //   { text: 'Favourite fruits', value: 'favouriteFruits'},
 // ];
 
-const statusOrder = ['Abgeschlossen', 'Gesperrt', 'Storniert'].map((value) =>
+const statusOrder = ["Abgeschlossen", "Gesperrt", "Storniert"].map((value) =>
   value.toLowerCase()
 );
 
@@ -331,7 +331,7 @@ const sortFunction = (
 ): number => {
   const itemA = a[sortBy];
   const itemB = b[sortBy];
-  const secondarySortByColumn = 'arrivalDate';
+  const secondarySortByColumn = "arrivalDate";
   const secondarySortItemA = a[secondarySortByColumn];
   const secondarySortItemB = b[secondarySortByColumn];
   const secondaryComparison = sortByDayjs(
@@ -342,20 +342,20 @@ const sortFunction = (
   let num = 0;
 
   switch (sortBy) {
-    case 'name':
-    case 'position':
-    case 'lastAttended':
-    case 'country':
+    case "name":
+    case "position":
+    case "lastAttended":
+    case "country":
       num = sortByString(itemA, itemB, sortDesc);
       break;
-    case 'arrivalDate':
+    case "arrivalDate":
       num = sortByDayjs(itemA, itemB, sortDesc);
       break;
-    case 'number':
-    case 'weight':
+    case "number":
+    case "weight":
       num = sortByNumber(itemA, itemB, sortDesc);
       break;
-    case 'status':
+    case "status":
       num =
         sortByStatus(statusOrder, itemA, itemB, sortDesc) ||
         secondaryComparison;
@@ -377,17 +377,17 @@ const deselectRow = (item: ClickRowArgument) => {
 };
 
 const updateSort = (sortOption: UpdateSortArgument) => {
-  document.getElementById('new-sort').innerHTML = JSON.stringify(sortOption);
+  document.getElementById("new-sort").innerHTML = JSON.stringify(sortOption);
   dataTable.value.currentPaginationNumber = 1;
 };
 // filtering
 
 const ageCriteria = ref<[number, number]>([1, 15]);
 
-const favouriteSportCriteria = ref('all');
+const favouriteSportCriteria = ref("all");
 
 const showNameFilter = ref(false);
-const nameCriteria = ref('');
+const nameCriteria = ref("");
 
 // const filterOptions = computed((): FilterOption[] => {
 //   const filterOptionsArray: FilterOption[] = [];
@@ -402,20 +402,20 @@ const nameCriteria = ref('');
 const bodyRowClassNameFunction: BodyRowClassNameFunction = (
   item: Item,
   index: number
-): string => (index === 0 ? 'first-row test-row' : '');
+): string => (index === 0 ? "first-row test-row" : "");
 const bodyExpandRowClassNameFunction: BodyRowClassNameFunction = (
   item: Item,
   index: number
-): string => 'expand-row';
+): string => "expand-row";
 
 const headerItemClassNameFunction: HeaderItemClassNameFunction = (
   header: Header,
   index: number
-): string => (header.value === 'name' ? 'name-header' : '');
+): string => (header.value === "name" ? "name-header" : "");
 const bodyItemClassNameFunction: BodyItemClassNameFunction = (
   column: string,
   index: number
-): string => (column === 'name' && index === 1 ? 'colume_name-index_1' : '');
+): string => (column === "name" && index === 1 ? "colume_name-index_1" : "");
 // $ref dataTable
 const dataTable = ref();
 
@@ -447,13 +447,14 @@ const prevPage = () => {
   dataTable.value.prevPage();
 };
 const updatePage = (paginationNumber: number) => {
+  console.log("paginationNumber", paginationNumber);
   dataTable.value.updatePage(paginationNumber);
 };
 const isDataHeader = (header: Header) => {
   return !(
-    header.value === 'checkbox' ||
-    header.value === 'index' ||
-    header.value === 'expand'
+    header.value === "checkbox" ||
+    header.value === "index" ||
+    header.value === "expand"
   );
 };
 

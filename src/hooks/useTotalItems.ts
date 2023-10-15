@@ -1,9 +1,12 @@
-import {
-  Ref, computed, ComputedRef, watch,
-} from 'vue';
-import type {Item, FilterOption, MultiSortFunction, SortFunction} from '../types/main';
-import type { ClientSortOptions, EmitsEventName } from '../types/internal';
-import { getItemValue } from '../utils';
+import { Ref, computed, ComputedRef, watch } from "vue";
+import type {
+  Item,
+  FilterOption,
+  MultiSortFunction,
+  SortFunction,
+} from "../types/main";
+import type { ClientSortOptions, EmitsEventName } from "../types/internal";
+import { getItemValue } from "../utils";
 
 export default function useTotalItems(
   clientSortOptions: Ref<ClientSortOptions | null>,
@@ -17,26 +20,29 @@ export default function useTotalItems(
   multiSort: Ref<boolean>,
   sortFn: Ref<SortFunction | null>,
   multiSortFunction: Ref<MultiSortFunction | null>,
-  emits: (event: EmitsEventName, ...args: any[]) => void,
+  emits: (event: EmitsEventName, ...args: any[]) => void
 ) {
   const generateSearchingTarget = (item: Item): string => {
-    if (typeof searchField.value === 'string' && searchField.value !== '') return getItemValue(searchField.value, item);
+    if (typeof searchField.value === "string" && searchField.value !== "")
+      return getItemValue(searchField.value, item);
     if (Array.isArray(searchField.value)) {
-      let searchString = '';
+      let searchString = "";
       searchField.value.forEach((field) => {
         searchString += getItemValue(field, item);
       });
       return searchString;
     }
-    return Object.values(item).join(' ');
+    return Object.values(item).join(" ");
   };
 
   // items searching
   const itemsSearching = computed((): Item[] => {
     // searching feature is not available in server-side mode
-    if (!isServerSideMode.value && searchValue.value !== '') {
-      const regex = new RegExp(searchValue.value, 'i');
-      return items.value.filter((item) => regex.test(generateSearchingTarget(item)));
+    if (!isServerSideMode.value && searchValue.value !== "") {
+      const regex = new RegExp(searchValue.value, "i");
+      return items.value.filter((item) =>
+        regex.test(generateSearchingTarget(item))
+      );
     }
     return items.value;
   });
@@ -47,26 +53,29 @@ export default function useTotalItems(
       filterOptions.value.forEach((option: FilterOption) => {
         itemsFiltered = itemsFiltered.filter((item) => {
           const { field, comparison, criteria } = option;
-          if (typeof comparison === 'function') {
+          if (typeof comparison === "function") {
             return comparison(getItemValue(field, item), criteria as string);
           }
           const itemValue = getItemValue(field, item);
           switch (comparison) {
-            case '=':
+            case "=":
               return itemValue === criteria;
-            case '!=':
+            case "!=":
               return itemValue !== criteria;
-            case '>':
+            case ">":
               return itemValue > criteria;
-            case '<':
+            case "<":
               return itemValue < criteria;
-            case '<=':
+            case "<=":
               return itemValue <= criteria;
-            case '>=':
+            case ">=":
               return itemValue >= criteria;
-            case 'between':
-              return itemValue >= Math.min(...criteria) && itemValue <= Math.max(...criteria);
-            case 'in':
+            case "between":
+              return (
+                itemValue >= Math.min(...criteria) &&
+                itemValue <= Math.max(...criteria)
+              );
+            case "in":
               return criteria.includes(itemValue);
             default:
               return itemValue === criteria;
@@ -78,17 +87,29 @@ export default function useTotalItems(
     return itemsSearching.value;
   });
 
-  watch(itemsFiltering, (newVal) => {
-    if (filterOptions.value) {
-      emits('updateFilter', newVal);
-    }
-  }, { immediate: true, deep: true });
+  watch(
+    itemsFiltering,
+    (newVal) => {
+      if (filterOptions.value) {
+        emits("updateFilter", newVal);
+      }
+    },
+    { immediate: true, deep: true }
+  );
 
-  function recursionMuiltSort(sortByArr: string[], sortDescArr: boolean[], itemsToSort: Item[], index: number): Item[] {
+  function recursionMuiltSort(
+    sortByArr: string[],
+    sortDescArr: boolean[],
+    itemsToSort: Item[],
+    index: number
+  ): Item[] {
     const sortBy = sortByArr[index];
     const sortDesc = sortDescArr[index];
-    const sorted = (index === 0 ? itemsToSort
-      : recursionMuiltSort(sortByArr, sortDescArr, itemsToSort, index - 1)).sort((a: Item, b: Item) => {
+    const sorted = (
+      index === 0
+        ? itemsToSort
+        : recursionMuiltSort(sortByArr, sortDescArr, itemsToSort, index - 1)
+    ).sort((a: Item, b: Item) => {
       let isAllSame = true;
       for (let i = 0; i < index; i += 1) {
         if (getItemValue(sortByArr[i], a) !== getItemValue(sortByArr[i], b)) {
@@ -97,8 +118,14 @@ export default function useTotalItems(
         }
       }
       if (isAllSame) {
-        if (getItemValue(sortBy as string, a) < getItemValue(sortBy as string, b)) return sortDesc ? 1 : -1;
-        if (getItemValue(sortBy as string, a) > getItemValue(sortBy as string, b)) return sortDesc ? -1 : 1;
+        if (
+          getItemValue(sortBy as string, a) < getItemValue(sortBy as string, b)
+        )
+          return sortDesc ? 1 : -1;
+        if (
+          getItemValue(sortBy as string, a) > getItemValue(sortBy as string, b)
+        )
+          return sortDesc ? -1 : 1;
         return 0;
       }
       return 0;
@@ -113,40 +140,58 @@ export default function useTotalItems(
     if (clientSortOptions.value === null) return itemsFiltering.value;
     const { sortBy, sortDesc } = clientSortOptions.value;
     const itemsFilteringSorted = [...itemsFiltering.value];
-    console.log(multiSort.value)
 
     // multi sort
     if (multiSort.value && Array.isArray(sortBy) && Array.isArray(sortDesc)) {
       if (sortBy.length === 0) return itemsFilteringSorted;
-      return (multiSortFunction.value ?? recursionMuiltSort)(sortBy, sortDesc, itemsFilteringSorted, sortBy.length - 1);
+      return (multiSortFunction.value ?? recursionMuiltSort)(
+        sortBy,
+        sortDesc,
+        itemsFilteringSorted,
+        sortBy.length - 1
+      );
     }
 
     const defaultSortFn = (a: Item, b: Item): -1 | 0 | 1 => {
-      if (getItemValue(sortBy as string, a) < getItemValue(sortBy as string, b)) return sortDesc ? 1 : -1;
-      if (getItemValue(sortBy as string, a) > getItemValue(sortBy as string, b)) return sortDesc ? -1 : 1;
+      if (getItemValue(sortBy as string, a) < getItemValue(sortBy as string, b))
+        return sortDesc ? 1 : -1;
+      if (getItemValue(sortBy as string, a) > getItemValue(sortBy as string, b))
+        return sortDesc ? -1 : 1;
       return 0;
-    }
+    };
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    return itemsFilteringSorted.sort((a, b) => sortFn.value?.(a, b, sortBy as string, sortDesc as boolean, getItemValue, defaultSortFn) ?? defaultSortFn(a, b));
+    return itemsFilteringSorted.sort(
+      (a, b) =>
+        sortFn.value?.(
+          a,
+          b,
+          sortBy as string,
+          sortDesc as boolean,
+          getItemValue,
+          defaultSortFn
+        ) ?? defaultSortFn(a, b)
+    );
   });
 
   // eslint-disable-next-line max-len
-  const totalItemsLength = computed((): number => (isServerSideMode.value ? serverItemsLength.value : totalItems.value.length));
+  const totalItemsLength = computed((): number =>
+    isServerSideMode.value ? serverItemsLength.value : totalItems.value.length
+  );
 
   // multiple selecting
   const selectItemsComputed = computed({
     get: () => itemsSelected.value ?? [],
     set: (value) => {
-      emits('update:itemsSelected', value);
+      emits("update:itemsSelected", value);
     },
   });
 
   const toggleSelectAll = (isChecked: boolean): void => {
     selectItemsComputed.value = isChecked ? totalItems.value : [];
-    if (isChecked) emits('selectAll');
+    if (isChecked) emits("selectAll");
   };
 
-  const toggleSelectItem = (item: Item):void => {
+  const toggleSelectItem = (item: Item): void => {
     const isAlreadyChecked = item.checkbox;
     // eslint-disable-next-line no-param-reassign
     delete item.checkbox;
@@ -156,11 +201,12 @@ export default function useTotalItems(
       const selectItemsArr: Item[] = selectItemsComputed.value;
       selectItemsArr.unshift(item);
       selectItemsComputed.value = selectItemsArr;
-      emits('selectRow', item);
+      emits("selectRow", item);
     } else {
-      selectItemsComputed.value = selectItemsComputed.value.filter((selectedItem) => JSON.stringify(selectedItem)
-        !== JSON.stringify(item));
-      emits('deselectRow', item);
+      selectItemsComputed.value = selectItemsComputed.value.filter(
+        (selectedItem) => JSON.stringify(selectedItem) !== JSON.stringify(item)
+      );
+      emits("deselectRow", item);
     }
   };
 

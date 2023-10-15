@@ -1,22 +1,32 @@
-import {
-  ref, Ref, computed, ComputedRef,
-} from 'vue';
-import type { ServerOptions } from '../types/main';
+import { ref, Ref, computed, ComputedRef } from "vue";
+import type { ServerOptions } from "../types/main";
 
 export default function usePagination(
   currentPage: Ref<number>,
   isServerSideMode: ComputedRef<boolean>,
   loading: Ref<boolean>,
   totalItemsLength: Ref<number>,
-  rowsPerPage: Ref<number>,
+  rowsPerPage: Ref<number | string>,
   serverOptions: Ref<ServerOptions | null>,
-  updateServerOptionsPage: (page: number) => void,
+  updateServerOptionsPage: (page: number) => void
 ) {
-  const currentPaginationNumber = ref(serverOptions.value ? serverOptions.value.page : currentPage.value);
-  const maxPaginationNumber = computed((): number => Math.ceil(totalItemsLength.value / rowsPerPage.value));
+  const currentPaginationNumber = ref(
+    serverOptions.value ? serverOptions.value.page : currentPage.value
+  );
+  const maxPaginationNumber = computed((): number =>
+    rowsPerPage.value === "All"
+      ? Math.ceil(totalItemsLength.value / totalItemsLength.value)
+      : Math.ceil(totalItemsLength.value / rowsPerPage.value)
+  );
   // eslint-disable-next-line max-len
-  const isLastPage = computed((): boolean => maxPaginationNumber.value === 0 || (currentPaginationNumber.value === maxPaginationNumber.value));
-  const isFirstPage = computed((): boolean => currentPaginationNumber.value === 1);
+  const isLastPage = computed(
+    (): boolean =>
+      maxPaginationNumber.value === 0 ||
+      currentPaginationNumber.value === maxPaginationNumber.value
+  );
+  const isFirstPage = computed(
+    (): boolean => currentPaginationNumber.value === 1
+  );
 
   const nextPage = () => {
     if (totalItemsLength.value === 0) return;
@@ -47,7 +57,11 @@ export default function usePagination(
     if (isServerSideMode.value) {
       updateServerOptionsPage(page);
     } else {
-      currentPaginationNumber.value = page;
+      if (rowsPerPage.value === "All") {
+        currentPaginationNumber.value = 1;
+      } else {
+        currentPaginationNumber.value = page;
+      }
     }
   };
 

@@ -1,10 +1,17 @@
-import { PropType } from 'vue';
+import { PropType } from "vue";
 import type {
-  SortType, Item, ServerOptions, FilterOption,
-  HeaderItemClassNameFunction, BodyItemClassNameFunction, BodyRowClassNameFunction,
-  TextDirection, MultiSortFunction, SortFunction
-} from './types/main';
-import type {ClickEventType} from './types/internal';
+  SortType,
+  Item,
+  ServerOptions,
+  FilterOption,
+  HeaderItemClassNameFunction,
+  BodyItemClassNameFunction,
+  BodyRowClassNameFunction,
+  TextDirection,
+  MultiSortFunction,
+  SortFunction,
+} from "./types/main";
+import type { ClickEventType } from "./types/internal";
 
 export default {
   alternating: {
@@ -25,7 +32,7 @@ export default {
   },
   emptyMessage: {
     type: String,
-    default: 'No Available Data',
+    default: "No Available Data",
   },
   expandColumnWidth: {
     type: Number,
@@ -53,11 +60,11 @@ export default {
   },
   headerTextDirection: {
     type: String as PropType<TextDirection>,
-    default: 'left',
+    default: "left",
   },
   bodyTextDirection: {
     type: String as PropType<TextDirection>,
-    default: 'left',
+    default: "left",
   },
   hideFooter: {
     type: Boolean,
@@ -89,19 +96,19 @@ export default {
   },
   rowsItems: {
     type: Array as PropType<number[]>,
-    default: () => [25, 50, 100],
+    default: () => [5, 10, 15, "All"],
   },
   rowsPerPageMessage: {
     type: String,
-    default: 'rows per page:',
+    default: "rows per page:",
   },
   searchField: {
     type: [String, Array as PropType<String[]>],
-    default: '',
+    default: "",
   },
   searchValue: {
     type: String,
-    default: '',
+    default: "",
   },
   serverOptions: {
     type: Object as PropType<ServerOptions> | null,
@@ -117,11 +124,11 @@ export default {
   },
   sortBy: {
     type: [String, Array as PropType<String[]>],
-    default: '',
+    default: "",
   },
   sortType: {
     type: [String as PropType<SortType>, Array as PropType<SortType[]>],
-    default: 'asc',
+    default: "asc",
   },
   multiSort: {
     type: Boolean,
@@ -129,11 +136,11 @@ export default {
   },
   sortFunction: {
     type: Function as PropType<SortFunction> | null,
-    default: null
+    default: null,
   },
   multiSortFunction: {
     type: Function as PropType<MultiSortFunction> | null,
-    default: null
+    default: null,
   },
   tableMinHeight: {
     type: Number,
@@ -145,31 +152,31 @@ export default {
   },
   themeColor: {
     type: String,
-    default: '#42b883',
+    default: "#42b883",
   },
   tableClassName: {
     type: String,
-    default: '',
+    default: "",
   },
   headerClassName: {
     type: String,
-    default: '',
+    default: "",
   },
   headerItemClassName: {
     type: [Function, String] as PropType<HeaderItemClassNameFunction | string>,
-    default: '',
+    default: "",
   },
   bodyRowClassName: {
     type: [Function, String] as PropType<BodyRowClassNameFunction | string>,
-    default: '',
+    default: "",
   },
   bodyExpandRowClassName: {
     type: [Function, String] as PropType<BodyRowClassNameFunction | string>,
-    default: '',
+    default: "",
   },
   bodyItemClassName: {
     type: [Function, String] as PropType<BodyItemClassNameFunction | string>,
-    default: '',
+    default: "",
   },
   noHover: {
     type: Boolean,
@@ -185,11 +192,11 @@ export default {
   },
   rowsOfPageSeparatorMessage: {
     type: String,
-    default: 'of',
+    default: "of",
   },
   clickEventType: {
     type: String as PropType<ClickEventType>,
-    default: 'single',
+    default: "single",
   },
   clickRowToExpand: {
     type: Boolean,
@@ -197,14 +204,14 @@ export default {
   },
   tableNodeId: {
     type: String,
-    default: '',
+    default: "",
   },
   showIndexSymbol: {
     type: String,
-    default: '#',
+    default: "#",
   },
   preventContextMenuRow: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 };
