@@ -52,9 +52,10 @@
     }
   }
   &.hoverable {
-   tr:hover td{
-      background-color: var(--easy-table-body-row-hover-background-color);
+   tr:hover {
+      background-color: var(--easy-table-body-row-hover-background-color); 
       color: var(--easy-table-body-row-hover-font-color);
+      cursor: pointer;
     }
 
     .vue3-easy-data-table__body.row-alternation {
@@ -109,7 +110,7 @@ table {
   color: var(--easy-table-header-font-color);
   font-family: Verdana, sans-serif;
   border: none;
-  border-bottom: var(--easy-table-row-border);
+/*   border-bottom: var(--easy-table-row-border); */
   font-weight: normal;
 
   padding: var(--easy-table-header-item-padding);
@@ -217,7 +218,7 @@ table {
   &:first-child {
 
     td {
-      border-bottom: var(--easy-table-row-border);
+     /*  border-bottom: var(--easy-table-row-border); */
     }
   }
 }
@@ -226,7 +227,7 @@ table {
   padding: var(--easy-table-body-item-padding);
   background-color: var(--easy-table-body-row-background-color);
   border: none;
-  border-bottom: var(--easy-table-row-border);
+ /*  border-bottom: var(--easy-table-row-border); */
   font-family: Verdana, sans-serif;
 
   &.direction-left {
@@ -273,7 +274,7 @@ table {
 .vue3-easy-data-table__footer {
   background-color: var(--easy-table-footer-background-color);
   color: var(--easy-table-footer-font-color);
-  border-top: var(--easy-table-row-border);
+/*   border-top: var(--easy-table-row-border); */
   font-size: var(--easy-table-footer-font-size);
   height: var(--easy-table-footer-height);
   padding: var(--easy-table-footer-padding);
