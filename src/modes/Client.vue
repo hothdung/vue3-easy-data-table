@@ -128,13 +128,13 @@ const switchToNested = () => {
   items.value = mockClientNestedItems(100);
 };
 const headers: Header[] = [
-  { text: 'Name', value: 'name', sortable: true },
-  { text: 'Number', value: 'number', sortable: true },
-  { text: 'Arrival Date', value: 'arrivalDate', sortable: true },
-  { text: 'Weight (lbs)', value: 'weight', sortable: true },
-  { text: 'Last Attended', value: 'lastAttended', width: 200, sortable: true },
-  { text: 'Country', value: 'country', sortable: true },
-  { text: 'Status', value: 'status', sortable: true },
+  { text: "Name", value: "name", sortable: true },
+  { text: "Number", value: "number", sortable: true },
+  { text: "Arrival Date", value: "arrivalDate", sortable: true },
+  { text: "Weight (lbs)", value: "weight", sortable: true },
+  { text: "Last Attended", value: "lastAttended", width: 200, sortable: true },
+  { text: "Country", value: "country", sortable: true },
+  { text: "Status", value: "status", sortable: true },
 ];
 
 // const headers: Header[] = headersMocked;
@@ -447,7 +447,6 @@ const prevPage = () => {
   dataTable.value.prevPage();
 };
 const updatePage = (paginationNumber: number) => {
-  console.log("paginationNumber", paginationNumber);
   dataTable.value.updatePage(paginationNumber);
 };
 const isDataHeader = (header: Header) => {
@@ -542,7 +541,7 @@ const updateRowsPerPageSelect = (e: Event) => {
 
   /* --easy-table-body-item-padding: 10px 15px; */
 
-  --easy-table-footer-background-color: #fff;;
+  --easy-table-footer-background-color: #fff;
   --easy-table-footer-font-color: black;
   --easy-table-footer-font-size: 14px;
   --easy-table-footer-padding: 0px 10px;
@@ -561,9 +560,8 @@ const updateRowsPerPageSelect = (e: Event) => {
 }
 
 .my-static-header th {
-/*   color: white; */
-/*   border-right: 1px solid #445269;
+  /*   color: white; */
+  /*   border-right: 1px solid #445269;
   border-bottom: 1px solid #445269; */
 }
-
 </style>
