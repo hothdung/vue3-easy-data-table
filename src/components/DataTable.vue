@@ -706,7 +706,7 @@ defineExpose({
 </style>
 
 <style lang="scss" scoped>
-@import '@/scss/vue3-easy-data-table.scss';
+@import '~@/scss/vue3-easy-data-table.scss';
 
 .vue3-easy-data-table__main {
   min-height: v-bind(tableMinHeightPx);
